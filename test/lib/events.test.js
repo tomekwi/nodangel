@@ -1,19 +1,19 @@
 /*global describe:true, it: true */
-var nodemon = require('../../lib/'),
+var nodangel = require('../../lib/'),
     assert = require('assert');
 
-describe('nodemon events', function () {
+describe('nodangel events', function () {
   it('should have (shims) events', function () {
-    assert(nodemon.on);
+    assert(nodangel.on);
   });
 
   it('should allow events to fire', function (done) {
-    nodemon.on('foo', function () {
+    nodangel.on('foo', function () {
       assert(true);
       done();
     });
 
-    nodemon.emit('foo');
+    nodangel.emit('foo');
   });
 });
 

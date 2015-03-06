@@ -21,7 +21,7 @@ describe('terminal signals', function () {
         }
       },
       error: function (data) {
-        assert(false, 'nodemon failed with ' + data);
+        assert(false, 'nodangel failed with ' + data);
         cleanup(p, done);
       }
     });

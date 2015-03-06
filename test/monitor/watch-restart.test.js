@@ -1,6 +1,6 @@
 'use strict';
 /*global describe, it, after, afterEach */
-var nodemon = require('../../lib/'),
+var nodangel = require('../../lib/'),
     assert = require('assert'),
     fs = require('fs'),
     utils = require('../utils'),
@@ -9,7 +9,7 @@ var nodemon = require('../../lib/'),
     crypto = require('crypto'),
     baseFilename = 'test/fixtures/test' + crypto.randomBytes(16).toString('hex');
 
-describe('nodemon monitor child restart', function () {
+describe('nodangel monitor child restart', function () {
   var tmpjs = path.resolve(baseFilename + '.js'),
       tmpmd = path.resolve(baseFilename + '.md');
 
@@ -32,8 +32,8 @@ describe('nodemon monitor child restart', function () {
     fs.unlink(tmpjs);
     fs.unlink(tmpmd);
     // clean up just in case.
-    nodemon.once('exit', function () {
-      nodemon.reset();
+    nodangel.once('exit', function () {
+      nodangel.reset();
       done();
     }).emit('quit');
   });
@@ -42,14 +42,14 @@ describe('nodemon monitor child restart', function () {
     write();
 
     setTimeout(function () {
-      nodemon({ script: tmpjs, verbose: true, ext: 'js' }).on('start', function () {
+      nodangel({ script: tmpjs, verbose: true, ext: 'js' }).on('start', function () {
         setTimeout(function () {
           touch.sync(tmpjs);
         }, 1500);
       }).on('restart', function (files) {
-        assert(files[0] === tmpjs, 'nodemon restarted because of change to our file' + files);
-        nodemon.once('exit', function () {
-          nodemon.reset();
+        assert(files[0] === tmpjs, 'nodangel restarted because of change to our file' + files);
+        nodangel.once('exit', function () {
+          nodangel.reset();
           done();
         }).emit('quit');
       });
@@ -60,7 +60,7 @@ describe('nodemon monitor child restart', function () {
     write(true);
     setTimeout(function () {
 
-      nodemon({
+      nodangel({
         script: tmpjs,
         ext: 'js md',
         verbose: true
@@ -73,9 +73,9 @@ describe('nodemon monitor child restart', function () {
         if (utils.match(msg, 'changes after filters')) {
           var changes = msg.trim().slice(-5).split('/');
           var restartedOn = changes.pop();
-          assert(restartedOn === '1', 'nodemon restarted on a single file change');
-          nodemon.once('exit', function () {
-            nodemon.reset();
+          assert(restartedOn === '1', 'nodangel restarted on a single file change');
+          nodangel.once('exit', function () {
+            nodangel.reset();
             done();
           }).emit('quit');
         }
@@ -90,7 +90,7 @@ describe('nodemon monitor child restart', function () {
       process.chdir('test/fixtures');
 
       setTimeout(function () {
-        nodemon({
+        nodangel({
           script: tmpjs,
           verbose: true,
           ext: 'js',
@@ -100,9 +100,9 @@ describe('nodemon monitor child restart', function () {
             touch.sync(tmpjs);
           }, 1000);
         }).on('restart', function (files) {
-          assert(files.length === 1, 'nodemon restarted when watching directory');
-          nodemon.once('exit', function () {
-            nodemon.reset();
+          assert(files.length === 1, 'nodangel restarted when watching directory');
+          nodangel.once('exit', function () {
+            nodangel.reset();
             done();
           }).emit('quit');
         });
@@ -115,7 +115,7 @@ describe('nodemon monitor child restart', function () {
     write(true);
 
     setTimeout(function () {
-      nodemon({
+      nodangel({
         script: tmpjs,
         verbose: true,
         ext: 'js md',
@@ -125,9 +125,9 @@ describe('nodemon monitor child restart', function () {
           touch.sync(tmpmd);
         }, 1000);
       }).on('restart', function (files) {
-        assert(files.length === 1, 'nodemon restarted when watching directory');
-        nodemon.once('exit', function () {
-          nodemon.reset();
+        assert(files.length === 1, 'nodangel restarted when watching directory');
+        nodangel.once('exit', function () {
+          nodangel.reset();
           done();
         }).emit('quit');
       });

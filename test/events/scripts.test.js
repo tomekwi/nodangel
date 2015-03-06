@@ -5,13 +5,13 @@ var cli = require('../../lib/cli/'),
     testUtils = require('../utils'),
     utils = require('../../lib/utils'),
     exec = require('../../lib/config/exec'),
-    nodemon = require('../../lib/nodemon'),
+    nodangel = require('../../lib/nodangel'),
     command = require('../../lib/config/command'),
     appjs = path.resolve(__dirname, '..', 'fixtures', 'env.js'),
     assert = require('assert');
 
 function asCLI(cmd) {
-  return ('node nodemon ' + (cmd|| '')).trim();
+  return ('node nodangel ' + (cmd|| '')).trim();
 }
 
 function parse(cmd) {
@@ -24,7 +24,7 @@ function commandToString(command) {
   return command.executable + (command.args.length ? ' ' + command.args.join(' ') : '');
 }
 
-describe('nodemon API events', function () {
+describe('nodangel API events', function () {
   var pwd = process.cwd(),
       oldhome = utils.home;
 
@@ -35,7 +35,7 @@ describe('nodemon API events', function () {
 
   after(function (done) {
     // clean up just in case.
-    nodemon.reset(done);
+    nodangel.reset(done);
   });
 
   beforeEach(function (done) {
@@ -43,16 +43,16 @@ describe('nodemon API events', function () {
     process.chdir(path.resolve(pwd, 'test/fixtures'));
     utils.home = path.resolve(pwd, ['test', 'fixtures', 'events'].join(path.sep));
 
-    nodemon.reset(done);
+    nodangel.reset(done);
   });
 
   it('should trigger start event script', function (done) {
     var plan = new testUtils.Plan(4, done);
-    nodemon({
+    nodangel({
       script: appjs,
       verbose: true,
       stdout: false,
-      env: { USER: 'nodemon' },
+      env: { USER: 'nodangel' },
     }).on('start', function () {
       plan.assert(true, 'started');
     }).on('exit', function () {
@@ -64,7 +64,7 @@ describe('nodemon API events', function () {
         plan.assert(true, 'OK found');
       } else if (data === 'STOPPED') {
         plan.assert(true, 'STOPPED found');
-      } else if (data === 'nodemon') {
+      } else if (data === 'nodangel') {
         // expected output
       } else {
         plan.assert(false, data + ' found')

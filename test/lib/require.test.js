@@ -1,6 +1,6 @@
 'use strict';
 /*global describe:true, it: true, afterEach: true */
-var nodemon = require('../../lib/'),
+var nodangel = require('../../lib/'),
     assert = require('assert'),
     path = require('path'),
     touch = require('touch'),
@@ -22,19 +22,19 @@ describe('require-able', function () {
     process.chdir(path.resolve(pwd, 'test'));
     utils.home = path.resolve(pwd, ['test'].join(path.sep));
 
-    nodemon.reset(done);
+    nodangel.reset(done);
   });
 
   it('should prioritise options over package.start', function (done) {
     process.chdir(path.resolve('fixtures/packages/start-ignored'));
 
-    nodemon({
+    nodangel({
       script: envjs,
-      env: { USER: 'nodemon' },
+      env: { USER: 'nodangel' },
       stdout: false,
     }).on('stdout', function (data) {
       var out = data.toString().trim();
-      assert(out === 'nodemon', 'expected output: ' + out);
+      assert(out === 'nodangel', 'expected output: ' + out);
       done();
     }).on('error', function (e) {
       assert(false, 'script did not run: ' + e);
@@ -42,24 +42,24 @@ describe('require-able', function () {
     });
   });
 
-  it('should know nodemon has been required', function () {
-    assert(nodemon.config.required, 'nodemon has required property');
+  it('should know nodangel has been required', function () {
+    assert(nodangel.config.required, 'nodangel has required property');
   });
 
   it('should restart on file change', function (done) {
     var restarted = false;
 
     utils.port++;
-    nodemon({ script: appjs, verbose: true, env: { PORT: utils.port } }).on('start', function () {
+    nodangel({ script: appjs, verbose: true, env: { PORT: utils.port } }).on('start', function () {
       setTimeout(function () {
         touch.sync(appjs);
       }, 1000);
     }).on('restart', function () {
       restarted = true;
-      nodemon.emit('quit');
+      nodangel.emit('quit');
     }).on('quit', function () {
-      assert(restarted, 'nodemon restarted and quit properly');
-      nodemon.reset(done);
+      assert(restarted, 'nodangel restarted and quit properly');
+      nodangel.reset(done);
     }).on('log', function (event) {
       // console.log(event.message);
     });
@@ -68,16 +68,16 @@ describe('require-able', function () {
   it('should be restartable', function (done) {
     var restarted = false;
 
-    nodemon(appjs).on('start', function () {
+    nodangel(appjs).on('start', function () {
       setTimeout(function () {
-        nodemon.restart();
+        nodangel.restart();
       }, 1000);
     }).on('restart', function () {
       restarted = true;
-      nodemon.emit('quit');
+      nodangel.emit('quit');
     }).on('quit', function () {
       assert(restarted);
-      nodemon.reset(done);
+      nodangel.reset(done);
       // unbind events for testing again
     });
   });
@@ -89,7 +89,7 @@ describe('require-able', function () {
     var found = false;
     utils.port++;
     setTimeout(function () {
-      nodemon({
+      nodangel({
         exec: [path.resolve('fixtures', 'app\\ with\\ spaces.js'), 'foo'],
         verbose: true,
         stdout: false,
@@ -102,10 +102,10 @@ describe('require-able', function () {
         }, 5000);
       }).on('restart', function () {
         restarted = true;
-        nodemon.emit('quit');
+        nodangel.emit('quit');
       }).on('quit', function () {
         assert(found, 'test for "foo" string in output');
-        nodemon.reset(done);
+        nodangel.reset(done);
       }).on('stdout', function (data) {
         console.log(data.toString().trim());
         found = data.toString().trim() === 'foo';

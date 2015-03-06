@@ -1,6 +1,6 @@
 'use strict';
 /*global describe:true, it: true, afterEach: true */
-var nodemon = require('../../lib/'),
+var nodangel = require('../../lib/'),
     assert = require('assert'),
     path = require('path'),
     touch = require('touch'),
@@ -21,7 +21,7 @@ describe('events should follow normal flow on user triggered change', function (
       ext: 'js',
       env: {
         PORT: utils.port,
-        USER: 'nodemon',
+        USER: 'nodangel',
       },
     };
   }
@@ -29,32 +29,32 @@ describe('events should follow normal flow on user triggered change', function (
   var cwd = process.cwd();
 
   beforeEach(function (done) {
-    nodemon.once('exit', function () {
-      nodemon.reset(done);
+    nodangel.once('exit', function () {
+      nodangel.reset(done);
     }).emit('quit');
   });
 
   before(function (done) {
     process.chdir(dir)
-    nodemon.reset(done);
+    nodangel.reset(done);
   });
 
   after(function (done) {
     process.chdir(cwd);
-    nodemon.once('exit', function () {
-      nodemon.reset(done);
+    nodangel.once('exit', function () {
+      nodangel.reset(done);
     }).emit('quit');
   });
 
   it('start', function (done) {
-    nodemon(conf()).once('start', function () {
+    nodangel(conf()).once('start', function () {
       assert(true, '"start" event');
       done();
     });
   });
 
   it('config:update', function (done) {
-    nodemon(conf()).on('config:update', function () {
+    nodangel(conf()).on('config:update', function () {
       assert(true, '"config:update" event');
       done();
     });
@@ -62,11 +62,11 @@ describe('events should follow normal flow on user triggered change', function (
 
   it('exit', function (done) {
     var plan = new utils.Plan(4, function () {
-      nodemon.reset(done);
+      nodangel.reset(done);
     });
     var run = 0;
 
-    nodemon(conf()).on('exit', function () {
+    nodangel(conf()).on('exit', function () {
       plan.assert(true, '"exit" event');
       if (run === 1) {
         setTimeout(function () {
@@ -84,7 +84,7 @@ describe('events should follow normal flow on user triggered change', function (
   })
 
   it('stdout', function (done) {
-    nodemon(conf()).once('stdout', function (data) {
+    nodangel(conf()).once('stdout', function (data) {
       assert(true, '"stdout" event with: ' + data);
       done();
     });
@@ -92,10 +92,10 @@ describe('events should follow normal flow on user triggered change', function (
 
   it('restart', function (done) {
     var plan = new utils.Plan(4, function () {
-      nodemon.reset(done);
+      nodangel.reset(done);
     });
 
-    nodemon(conf()).on('restart', function (files) {
+    nodangel(conf()).on('restart', function (files) {
       plan.assert(true, '"restart" event with ' + files);
       plan.assert(files[0] === appjs, 'restart due to ' + files.join(' ') + ' changing');
     }).once('exit', function () {

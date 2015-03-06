@@ -7,7 +7,7 @@ var assert = require('assert'),
     cleanup = utils.cleanup,
     run = utils.run;
 
-describe('nodemon full config test', function () {
+describe('nodangel full config test', function () {
   var pwd = process.cwd();
 
   beforeEach(function () {
@@ -20,7 +20,7 @@ describe('nodemon full config test', function () {
   });
 
   it('should allow execMap.js to be overridden', function (done) {
-    var p = run({ exec: '../../bin/nodemon.js',
+    var p = run({ exec: '../../bin/nodangel.js',
                   args: ['-V']
       }, {
       error: function (data) {

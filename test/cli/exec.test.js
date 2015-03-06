@@ -16,7 +16,7 @@ function toCmd(options) {
   };
 }
 
-describe('nodemon exec', function () {
+describe('nodangel exec', function () {
   it('should default to node', function () {
     var options = exec({ script: 'index.js' });
     var cmd = toCmd(options);
@@ -74,7 +74,7 @@ describe('nodemon exec', function () {
 
   it('should support input from argv#parse', function () {
     var parse = require('../../lib/cli/parse');
-    parse('node /usr/local/bin/nodemon.js --debug -e js,jade,hbs app.js'.split(' '));
+    parse('node /usr/local/bin/nodangel.js --debug -e js,jade,hbs app.js'.split(' '));
   });
 
   it('should use coffeescript on .coffee', function () {

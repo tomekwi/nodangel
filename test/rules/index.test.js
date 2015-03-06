@@ -1,7 +1,7 @@
 'use strict';
 /*global describe:true, it: true, beforeEach: true */
 var fs = require('fs'),
-    nodemon = require('../../lib/nodemon'),
+    nodangel = require('../../lib/nodangel'),
     rules = require('../../lib/rules'),
     assert = require('assert');
 
@@ -13,7 +13,7 @@ function loadfixtures(sample) {
   };
 }
 
-describe('nodemon rules', function () {
+describe('nodangel rules', function () {
   var fixtures = {
     comments: loadfixtures('comments'),
     regexp: loadfixtures('regexp'),
@@ -23,13 +23,13 @@ describe('nodemon rules', function () {
   };
 
   beforeEach(function (done) {
-    nodemon.reset(done);
+    nodangel.reset(done);
   });
 
   it('should be resetable', function (done) {
-    // nodemon.reset();
+    // nodangel.reset();
     rules.load('./test/fixtures/simple.json', function () {
-      nodemon.reset();
+      nodangel.reset();
 
       rules.load('./test/fixtures/comments', function (error, rules) {
         assert.deepEqual(rules, { watch: [], ignore: [] }, 'rules are empty: ' + JSON.stringify(rules));

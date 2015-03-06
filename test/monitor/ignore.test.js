@@ -9,7 +9,7 @@ var assert = require('assert'),
     run = utils.run,
     files = [],
     randomFile = function () {
-      return '_nodemon' + (Math.random() * Date.now() | 0);
+      return '_nodangel' + (Math.random() * Date.now() | 0);
     };
 
 function ignore(rule, done, file) {
@@ -41,18 +41,18 @@ function ignore(rule, done, file) {
 
         // if this fires, then *nothing* happened, which is good
         setTimeout(function () {
-          // assert(true, 'nodemon did not restart');
+          // assert(true, 'nodangel did not restart');
           cleanup(p, done);
         }, 1000);
       }, 1000);
     } else if (event.type === 'restart') {
-      assert(false, 'nodemon should not restart');
+      assert(false, 'nodangel should not restart');
       cleanup(p, done);
     }
   });
 }
 
-describe('nodemon ignore', function () {
+describe('nodangel ignore', function () {
   after(function () {
     files.forEach(fs.unlink);
   });

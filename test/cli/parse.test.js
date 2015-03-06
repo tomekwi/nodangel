@@ -7,7 +7,7 @@ var cli = require('../../lib/cli/'),
     command = require('../../lib/config/command');
 
 function asCLI(cmd) {
-  return ('node nodemon ' + (cmd|| '')).trim();
+  return ('node nodangel ' + (cmd|| '')).trim();
 }
 
 function parse(cmd) {
@@ -31,7 +31,7 @@ function commandToString(command) {
   return command.executable + (command.args.length ? ' ' + command.args.join(' ') : '');
 }
 
-describe('nodemon CLI parser', function () {
+describe('nodangel CLI parser', function () {
   it('should support --debug with script detect via package', function () {
     var cwd = process.cwd();
     process.chdir('test/fixtures/packages/express4');
@@ -147,7 +147,7 @@ describe('nodemon CLI parser', function () {
     assert(settings.watch[0] === 'foo bar');
   });
 
-  it('should keep eating arguments that are for nodemon after the script.js', function () {
+  it('should keep eating arguments that are for nodangel after the script.js', function () {
     var settings = parse(asCLI('--watch "foo bar" test/fixtures/app.js -V --scriptOpt1 -L -- -L'));
     assert.deepEqual(settings.execOptions.args, ['--scriptOpt1', '-L'], 'script args are: ' + settings.execOptions.args.join(' '));
     assert(settings.verbose === true, 'verbose');
@@ -157,21 +157,21 @@ describe('nodemon CLI parser', function () {
 
   it('should allow -- to appear anywhere, and still find user script', function () {
     var settings = parse(asCLI('test/fixtures/app.js -- -L'));
-    assert(!settings.legacyWatch, '-L arg was passed to script, not nodemon');
+    assert(!settings.legacyWatch, '-L arg was passed to script, not nodangel');
     assert.deepEqual(settings.execOptions.args, ['-L'], 'script passed -L via --');
     settings = parse(asCLI('-- test/fixtures/app.js -L'));
     assert.deepEqual(settings.execOptions.args, ['-L'], 'leading -- finds script');
     settings = parse(asCLI('test/fixtures/app.js -L --'));
     assert.deepEqual(settings.execOptions.args, [], '-- is ignored');
-    assert(settings.legacyWatch, '-L was passed to nodemon');
+    assert(settings.legacyWatch, '-L was passed to nodangel');
   });
 
   it('should support arguments from the cli', function () {
-    var settings = parse(['node', 'nodemon', '--watch', 'foo bar']);
+    var settings = parse(['node', 'nodangel', '--watch', 'foo bar']);
     assert(settings.watch[0] === 'foo bar');
   });
 
-  it('should support stand alone `nodemon` command', function () {
+  it('should support stand alone `nodangel` command', function () {
     var settings = parse(asCLI(''));
     assert(settings.execOptions.script === pkg.main);
   });
@@ -191,20 +191,20 @@ describe('nodemon CLI parser', function () {
     assert(commandToString(command(settings)) === 'node .');
   });
 
-  it('should parse `nodemon lib/index.js`', function () {
+  it('should parse `nodangel lib/index.js`', function () {
     var settings = parse(asCLI('lib/index.js'));
 
     assert(settings.script === 'lib/index.js');
   });
 
-  it('should parse `nodemon test/fixtures/app.coffee`', function () {
+  it('should parse `nodangel test/fixtures/app.coffee`', function () {
     var settings = parse(asCLI('test/fixtures/app.coffee'));
 
     assert(settings.script === 'test/fixtures/app.coffee');
     assert(settings.execOptions.exec.indexOf('coffee') === 0, 'executable is CoffeeScript');
   });
 
-  it('should parse `nodemon --watch src/ -e js,coffee test/fixtures/app.js`', function () {
+  it('should parse `nodangel --watch src/ -e js,coffee test/fixtures/app.js`', function () {
     var settings = parse(asCLI('--watch src/ -e js,coffee test/fixtures/app.js'));
 
     assert(settings.script === 'test/fixtures/app.js');
@@ -229,14 +229,14 @@ describe('nodemon CLI parser', function () {
   });
 });
 
-describe('nodemon argument parser', function () {
+describe('nodangel argument parser', function () {
   it('support strings', function () {
-    var settings = cli.parse('node nodemon -v');
+    var settings = cli.parse('node nodangel -v');
     assert(settings.version === true, 'version flag');
   });
 
   it('should support short versions of flags', function () {
-    var settings = cli.parse('node nodemon -v -x java -I -V -q -w fixtures -i fixtures -d 5 -L -e jade');
+    var settings = cli.parse('node nodangel -v -x java -I -V -q -w fixtures -i fixtures -d 5 -L -e jade');
     assert(settings.version, 'version');
     assert(settings.verbose, 'verbose');
     assert(settings.exec === 'java', 'exec');
@@ -251,7 +251,7 @@ describe('nodemon argument parser', function () {
 
 
   it('should support long versions of flags', function () {
-    var settings = cli.parse('node nodemon --version --exec java --verbose --quiet --watch fixtures --ignore fixtures --no-stdin --delay 5 --legacy-watch --exitcrash --ext jade');
+    var settings = cli.parse('node nodangel --version --exec java --verbose --quiet --watch fixtures --ignore fixtures --no-stdin --delay 5 --legacy-watch --exitcrash --ext jade');
     assert(settings.version, 'version');
     assert(settings.verbose, 'verbose');
     assert(settings.exec === 'java', 'exec');
@@ -266,7 +266,7 @@ describe('nodemon argument parser', function () {
   });
 });
 
-describe('nodemon respects custom "ext" and "execMap"', function () {
+describe('nodangel respects custom "ext" and "execMap"', function () {
   it('should support "ext" and "execMap" for same extension', function () {
     var settings = parse(asCLI('-x "node --harmony" -e "js json coffee" test/fixtures/app.coffee'));
     assert(settings.execOptions.ext.indexOf('js') === 0, 'js is monitored: ' + settings.execOptions.ext);
@@ -275,7 +275,7 @@ describe('nodemon respects custom "ext" and "execMap"', function () {
   });
 });
 
-describe('nodemon with CoffeeScript', function () {
+describe('nodangel with CoffeeScript', function () {
   it('should not add --nodejs by default', function () {
     var settings = parse(asCLI('test/fixtures/app.coffee'));
     assert(settings.execOptions.exec.indexOf('coffee') === 0, 'executable is CoffeeScript');
@@ -301,24 +301,24 @@ describe('nodemon with CoffeeScript', function () {
   });
 });
 
-describe('nodemon --delay argument', function () {
+describe('nodangel --delay argument', function () {
   it('should support an integer value', function () {
-    var settings = cli.parse('node nodemon --delay 5');
+    var settings = cli.parse('node nodangel --delay 5');
     assert(settings.delay === 5000, 'delay 5 seconds');
   });
 
   it('should support a float value', function () {
-    var settings = cli.parse('node nodemon --delay 1.2');
+    var settings = cli.parse('node nodangel --delay 1.2');
     assert(settings.delay === 1200, 'delay 1.2 seconds');
   });
 
   it('should support a value with a time specifier for seconds (s)', function () {
-    var settings = cli.parse('node nodemon --delay 5s');
+    var settings = cli.parse('node nodangel --delay 5s');
     assert(settings.delay === 5000, 'delay 5 seconds');
   });
 
   it('should support a value with a time specifier for milliseconds (ms)', function () {
-    var settings = cli.parse('node nodemon --delay 1200ms');
+    var settings = cli.parse('node nodangel --delay 1200ms');
     assert(settings.delay === 1200, 'delay 1.2 seconds');
   });
 });

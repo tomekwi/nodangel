@@ -14,7 +14,7 @@ var assert = require('assert'),
     noop = function () {},
     baseFilename = 'test/fixtures/test' + crypto.randomBytes(16).toString('hex');
 
-describe('nodemon fork child restart', function () {
+describe('nodangel fork child restart', function () {
   var tmpjs = path.resolve(baseFilename + '.js'),
       tmpmd = path.resolve(baseFilename + '.md'),
       tmpcoffee = path.resolve(baseFilename + '.coffee');
@@ -42,7 +42,7 @@ describe('nodemon fork child restart', function () {
   //       if (utils.match(data, 'Listening on port')) {
   //         listening++;
   //         if (listening === 2) {
-  //           assert(true, 'nodemon started child successfully twice');
+  //           assert(true, 'nodangel started child successfully twice');
   //           cleanup(p, done);
   //         }
   //       }
@@ -58,7 +58,7 @@ describe('nodemon fork child restart', function () {
   //         touch.sync(tmpcoffee);
   //       }, 2000);
   //     } else if (event.type === 'restart') {
-  //       assert(true, 'nodemon restarted');
+  //       assert(true, 'nodangel restarted');
   //     }
   //   });
 
@@ -80,7 +80,7 @@ describe('nodemon fork child restart', function () {
           touch.sync(tmpjs);
         }, 1000);
       } else if (event.type === 'restart') {
-        assert(true, 'nodemon restarted');
+        assert(true, 'nodangel restarted');
         cleanup(p, done);
       }
     });
@@ -98,10 +98,10 @@ describe('nodemon fork child restart', function () {
 
       setTimeout(function () {
         if (restartCount === 1) {
-          assert(true, 'nodemon restarted ' + restartCount + ' times');
+          assert(true, 'nodangel restarted ' + restartCount + ' times');
           cleanup(p, done);
         } else {
-          cleanup(p, done, new Error('nodemon started ' + restartCount + ' times'));
+          cleanup(p, done, new Error('nodangel started ' + restartCount + ' times'));
         }
       }, 8000);
 
@@ -156,7 +156,7 @@ describe('nodemon fork child restart', function () {
           if (monitor(msg)) {
             var changes = msg.slice(-5).split('/');
             var restartedOn = changes.pop();
-            assert(restartedOn === '1', 'nodemon restarted on a single file change');
+            assert(restartedOn === '1', 'nodangel restarted on a single file change');
             cleanup(p, done);
           }
         }

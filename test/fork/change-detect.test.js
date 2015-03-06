@@ -10,17 +10,17 @@ var utils = require('../utils'),
     cleanup = utils.cleanup,
     run = utils.run;
 
-describe('nodemon fork simply running', function () {
+describe('nodangel fork simply running', function () {
   it('should start', function (done) {
     var p = run(appjs, {
       output: function (data) {
         if (match(data, appjs)) {
-          assert(true, 'nodemon started');
+          assert(true, 'nodangel started');
           cleanup(p, done);
         }
       },
       error: function (data) {
-        assert(false, 'nodemon failed with ' + data);
+        assert(false, 'nodangel failed with ' + data);
         cleanup(p, done);
       }
     });
@@ -28,7 +28,7 @@ describe('nodemon fork simply running', function () {
 
 });
 
-describe('nodemon fork monitor', function () {
+describe('nodangel fork monitor', function () {
   it('should restart on .js file changes with no arguments', function (done) {
     var startWatch = false;
     var p = run(appjs, {
@@ -45,7 +45,7 @@ describe('nodemon fork monitor', function () {
 
           // .split('changes after filters').pop().split('/');
           // var restartedOn = changes.pop().trim();
-          assert(restartedOn === '1', 'nodemon restarted on 1 file: ' + restartedOn + ' / ' + data.toString());
+          assert(restartedOn === '1', 'nodangel restarted on 1 file: ' + restartedOn + ' / ' + data.toString());
         }
       },
       error: function (data) {
@@ -88,7 +88,7 @@ describe('nodemon fork monitor', function () {
             touch.sync(appcoffee);
           }, 2500);
         } else if (event.type === 'restart') {
-          utils.cleanup(p, done, new Error('nodemon restarted'));
+          utils.cleanup(p, done, new Error('nodangel restarted'));
         }
       });
     }, 2000);

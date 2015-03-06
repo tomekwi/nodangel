@@ -8,8 +8,8 @@ var fork = require('child_process').fork,
 
 function asCLI(cmd) {
   return {
-    exec: 'bin/nodemon.js',
-    // make nodemon verbose so we can check the filters being applied
+    exec: 'bin/nodangel.js',
+    // make nodangel verbose so we can check the filters being applied
     args: ('-V ' + (cmd || '')).trim().split(' ')
   };
 }
@@ -21,7 +21,7 @@ function match(str, key) {
 function monitorForChange(str) {
   var watch = false;
   return function (line) {
-    if (match(line, 'files triggering change check: nodemonCheckFsWatch')) {
+    if (match(line, 'files triggering change check: nodangelCheckFsWatch')) {
       watch = false;
     } else if (match(line, 'files triggering change check:')) {
       watch = true;

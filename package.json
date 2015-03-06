@@ -1,19 +1,19 @@
 {
-  "name": "nodemon",
-  "homepage": "http://nodemon.io",
+  "name": "nodangel",
+  "homepage": "http://nodangel.io",
   "author": {
     "name": "Remy Sharp",
     "url": "http://github.com/remy"
   },
   "bin": {
-    "nodemon": "./bin/nodemon.js"
+    "nodangel": "./bin/nodangel.js"
   },
   "engines": {
     "node": ">=0.8"
   },
   "repository": {
     "type": "git",
-    "url": "http://github.com/remy/nodemon.git"
+    "url": "http://github.com/tomekwi/nodangel.git"
   },
   "description": "Simple monitor script for use during development of a node.js app.",
   "keywords": [
@@ -32,7 +32,7 @@
       "url": "http://rem.mit-license.org"
     }
   ],
-  "main": "./lib/nodemon",
+  "main": "./lib/nodangel",
   "scripts": {
     "coverage": "istanbul cover _mocha -- --timeout 30000 --ui bdd --reporter list test/**/*.test.js",
     ":test": "node_modules/.bin/mocha --timeout 30000 --ui bdd test/**/*.test.js",

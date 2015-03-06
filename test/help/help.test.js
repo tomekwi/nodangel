@@ -5,7 +5,7 @@ var help = require('../../lib/help'),
 describe('help', function () {
   it('should load index by default', function () {
     var page = help();
-    assert(page.indexOf('Usage: nodemon') !== -1, 'shows default help page');
+    assert(page.indexOf('Usage: nodangel') !== -1, 'shows default help page');
   });
 
   it('should load specific help topic', function () {

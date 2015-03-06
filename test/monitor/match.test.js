@@ -5,10 +5,10 @@ var assert = require('assert'),
     config = require('../../lib/config'),
     path = require('path'),
     fs = require('fs'),
-    nodemonUtils = require('../../lib/utils'),
+    nodangelUtils = require('../../lib/utils'),
     defaults = require('../../lib/config/defaults'),
     utils = require('../utils'),
-    merge = nodemonUtils.merge;
+    merge = nodangelUtils.merge;
 
 describe('match', function () {
   var monitor = [
@@ -99,7 +99,7 @@ describe('match', function () {
     });
   });
 
-  it('should ignore nodemon default rules', function (done) {
+  it('should ignore nodangel default rules', function (done) {
     config.load({ ext: '*.js' }, function (config) {
 
       var files = [utils.appjs, path.join(__dirname, '/.git/foo.js')];
@@ -140,13 +140,13 @@ describe('match', function () {
     });
   });
 
-  it('should support old .nodemonignore', function (done) {
-    // prevents our test from finding the nodemon.json files
+  it('should support old .nodangelignore', function (done) {
+    // prevents our test from finding the nodangel.json files
     var pwd = process.cwd(),
-        old = nodemonUtils.home;
+        old = nodangelUtils.home;
 
     process.chdir(path.resolve(pwd, 'test/fixtures/legacy'));
-    nodemonUtils.home = path.resolve(pwd, 'test/fixtures/legacy');
+    nodangelUtils.home = path.resolve(pwd, 'test/fixtures/legacy');
 
     // will load the legacy file format
     config.load({ script: utils.appjs, ext: 'js json' }, function (config) {
@@ -161,7 +161,7 @@ describe('match', function () {
       assert.deepEqual(result.result, [], 'nothing matched' + result.result);
 
       process.chdir(pwd);
-      nodemonUtils.home = old;
+      nodangelUtils.home = old;
       done();
     });
   });
@@ -191,7 +191,7 @@ describe('match', function () {
   });
 
   it('should ignore case when comparing paths on Windows', function () {
-    if (!nodemonUtils.isWindows) {
+    if (!nodangelUtils.isWindows) {
       return;
     }
     var results = match(['C:\\TEST\\fixtures'], ['c:\\test\\fixtures']);

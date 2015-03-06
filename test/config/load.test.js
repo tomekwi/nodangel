@@ -7,12 +7,12 @@ var load = require('../../lib/config/load'),
     utils = require('../../lib/utils'),
     rules = require('../../lib/rules'),
     exec = require('../../lib/config/exec'),
-    nodemon = require('../../lib/nodemon'),
+    nodangel = require('../../lib/nodangel'),
     command = require('../../lib/config/command'),
     assert = require('assert');
 
 function asCLI(cmd) {
-  return ('node nodemon ' + (cmd|| '')).trim();
+  return ('node nodangel ' + (cmd|| '')).trim();
 }
 
 function commandToString(command) {
@@ -30,8 +30,8 @@ describe('config load', function () {
 
   after(function (done) {
     // clean up just in case.
-    nodemon.once('exit', function () {
-      nodemon.reset();
+    nodangel.once('exit', function () {
+      nodangel.reset();
       done();
     }).emit('quit');
   });
@@ -47,35 +47,35 @@ describe('config load', function () {
     utils.home = path.resolve(pwd, ['test', 'fixtures', 'global'].join(path.sep));
 
     rules.reset();
-    nodemon.config.reset();
+    nodangel.config.reset();
   });
 
   it('should remove ignore defaults if user provides their own', function (done) {
 
-    nodemon({
+    nodangel({
       script: testUtils.appjs,
       verbose: true
     }).on('log', function (event) {
       // console.log(event.colour);
     }).on('start', function () {
-      assert.ok(nodemon.config.options.ignore.indexOf('one') !== -1, 'Contains "one" path');
-      assert.ok(nodemon.config.options.ignore.indexOf('three') !== -1, 'Contains "three" path');
+      assert.ok(nodangel.config.options.ignore.indexOf('one') !== -1, 'Contains "one" path');
+      assert.ok(nodangel.config.options.ignore.indexOf('three') !== -1, 'Contains "three" path');
       // note: we use the escaped format: \\.git
-      assert.ok(nodemon.config.options.ignore.indexOf('\\.git') === -1, 'nodemon is not ignoring (default) .git');
+      assert.ok(nodangel.config.options.ignore.indexOf('\\.git') === -1, 'nodangel is not ignoring (default) .git');
 
-      nodemon.on('exit', function () {
-        nodemon.reset();
+      nodangel.on('exit', function () {
+        nodangel.reset();
         done();
       });
 
       setTimeout(function () {
-        nodemon.emit('quit');
+        nodangel.emit('quit');
       }, 1000);
     });
   });
 
-  it('should support old .nodemonignore', function (done) {
-    // prevents our test from finding the nodemon.json files
+  it('should support old .nodangelignore', function (done) {
+    // prevents our test from finding the nodangel.json files
     process.chdir(path.resolve(pwd, 'test/fixtures/legacy'));
     utils.home = path.resolve(pwd, 'test/fixtures/legacy');
 
@@ -160,7 +160,7 @@ describe('config load', function () {
   });
 
   it('should support "ext" with "execMap"', function (done) {
-    // prevents our test from finding the nodemon.json files
+    // prevents our test from finding the nodangel.json files
     process.chdir(path.resolve(pwd, 'test/fixtures/legacy'));
     utils.home = path.resolve(pwd, 'test/fixtures/legacy');
 
