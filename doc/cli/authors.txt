@@ -1,5 +1,5 @@
 
- This is a mirror of nodemon (http://npm.im/nodemon).
+ This is a mirror of nodemon (http://npm.im/nodemon) – just with a nicer name.
 
  Remy Sharp - author and maintainer
     http://github.com/remy

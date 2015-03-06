@@ -1,4 +1,4 @@
-  Usage: nodemon [options] [script.js] [args]
+  Usage: nodangel [options] [script.js] [args]
 
   Options:
 
@@ -7,33 +7,36 @@
   -w, --watch dir........... watch directory "dir" or files. use once for
                              each directory or file to watch.
   -i, --ignore ............. ignore specific files or directories.
-  -q, --quiet .............. minimise nodemon messages to start/stop only.
+  -q, --quiet .............. minimise nodangel messages to start/stop only.
   -V, --verbose ............ show detail on what is causing restarts.
   -I, --no-stdin ........... don't try to read from stdin.
   -d, --delay n ............ debounce restart for "n" seconds.
   -L, --legacy-watch ....... Forces node to use the most compatible version
                              for watching file changes.
-  --exitcrash .............. exit on crash, allows use of nodemon with daemon
+  --exitcrash .............. exit on crash, allows use of nodangel with daemon
                              tools like forever.js.
-  -v, --version ............ current nodemon version.
+  -v, --version ............ current nodangel version.
   -h, --help ............... you're looking at it.
   --help <topic> ........... help on a specific feature. Try "--help topics".
-  -- <your args> ........... to tell nodemon stop slurping arguments.
+  -- <your args> ........... to tell nodangel stop slurping arguments.
 
-  Note: if the script is omitted, nodemon will try to read "main" from
-  package.json and without a nodemon.json, nodemon will monitor .js, .coffee,
+  Note: if the script is omitted, nodangel will try to read "main" from
+  package.json and without a nodangel.json, nodangel will monitor .js, .coffee,
   and .litcoffee by default.
 
-  To learn more about nodemon.json config: nodemon --help config
-  See also the sample: https://github.com/remy/nodemon/wiki/Sample-nodemon.json
+  To learn more about nodangel.json config: nodangel --help config
+  See also the sample: https://github.com/tomekwi/nodangel/wiki/Sample-nodangel.json
 
   Examples:
 
-  $ nodemon server.js
-  $ nodemon -w ../foo server.js apparg1 apparg2
-  $ PORT=8000 nodemon --debug-brk server.js
-  $ nodemon --exec python app.py
-  $ nodemon --exec "make build" -e "styl hbs"
-  $ nodemon app.js -- -L
+  $ nodangel server.js
+  $ nodangel -w ../foo server.js apparg1 apparg2
+  $ PORT=8000 nodangel --debug-brk server.js
+  $ nodangel --exec python app.py
+  $ nodangel --exec "make build" -e "styl hbs"
+  $ nodangel app.js -- -L
 
-  For more details see http://github.com/remy/nodemon/
+  Note: This is a mirror of nodemon (http://npm.im/nodemon) – just with a nicer
+  name.
+
+  For more details see http://github.com/tomekwi/nodangel/
