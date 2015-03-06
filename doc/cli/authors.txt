@@ -1,8 +1,10 @@
 
+ This is a mirror of nodemon (http://npm.im/nodemon).
+
  Remy Sharp - author and maintainer
     http://github.com/remy
     http://twitter.com/rem
 
  Contributors: https://github.com/remy/nodemon/graphs/contributors ❤︎
 
- Please help make nodemon better: https://github.com/remy/nodemon/
+ Please help make remy/nodemon better: https://github.com/remy/nodemon/
