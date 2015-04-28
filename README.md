@@ -1,5 +1,9 @@
 # nodangel
 
+*Hey!* this is just [*nodemon*](http://npm.im/nodemon) – with a nicer name.
+
+***
+
 For use during development of a node.js based application.
 
 nodangel will watch the files in the directory in which nodangel was started, and if any files change, nodangel will automatically restart your node application.
